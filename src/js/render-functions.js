@@ -1,8 +1,9 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export function make(imagesArr, gallery) {
-  const ulGallery = document.querySelector(gallery);
+const ulGallery = document.querySelector('.gallery');
+
+export function make(imagesArr) {
   const photos = imagesArr
     .map(image => {
       return `
@@ -23,11 +24,12 @@ export function make(imagesArr, gallery) {
     })
     .join('');
 
-  ulGallery.insertAdjacentHTML('afterbegin', photos);
+  ulGallery.insertAdjacentHTML('beforeend', photos);
 
-  const lightbox = new SimpleLightbox(gallery + ' a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
   lightbox.refresh();
 }
+
+const lightbox = new SimpleLightbox('.gallery' + ' a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});

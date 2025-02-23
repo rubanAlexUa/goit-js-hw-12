@@ -95,3 +95,14 @@ td {
 .btn-send:hover {
   background: #6c8cff;
 }
+
+.more {
+  display: flex;
+  margin: 50px auto;
+}
+
+.hidden {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
