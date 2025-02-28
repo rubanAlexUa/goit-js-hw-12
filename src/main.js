@@ -7,7 +7,7 @@ const form = document.querySelector('.form-find-img');
 const gallery = document.querySelector('.gallery');
 const input = document.querySelector('.enter-img');
 const btnLoadMore = document.querySelector('.more');
-const loader = document.querySelector('.loader'); // Додаємо лоадер
+const loader = document.querySelector('.loader');
 let currentPage = 1;
 let searchQuery = '';
 
@@ -16,13 +16,13 @@ form.addEventListener('submit', async e => {
   loader.innerHTML = 'Wait, the image is loaded';
 
   searchQuery = input.value.trim();
-  if (!searchQuery) return; // Якщо запит порожній, лоадер не буде показуватися
+  if (!searchQuery) return;
 
   currentPage = 1;
   gallery.innerHTML = '';
 
   btnLoadMore.classList.add('hidden');
-  loader.classList.remove('hidden'); // Показуємо лоадер
+  loader.classList.remove('hidden');
 
   try {
     const images = await getImage(searchQuery, currentPage);
@@ -45,7 +45,7 @@ form.addEventListener('submit', async e => {
     });
     btnLoadMore.classList.add('hidden');
   } finally {
-    loader.classList.add('hidden'); // Ховаємо лоадер
+    loader.classList.add('hidden');
   }
 });
 
@@ -54,7 +54,7 @@ btnLoadMore.addEventListener('click', loadMore);
 async function loadMore() {
   currentPage++;
   btnLoadMore.disabled = true;
-  loader.classList.remove('hidden'); // Показуємо лоадер при натисканні на "Load More"
+  loader.classList.remove('hidden');
 
   try {
     const images = await getImage(searchQuery, currentPage);
@@ -75,7 +75,7 @@ async function loadMore() {
     });
     btnLoadMore.classList.add('hidden');
   } finally {
-    loader.classList.add('hidden'); // Ховаємо лоадер після завантаження
+    loader.classList.add('hidden');
     btnLoadMore.disabled = false;
   }
 }
