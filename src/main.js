@@ -4,24 +4,25 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.form-find-img');
-const message = document.querySelector('.message');
 const gallery = document.querySelector('.gallery');
 const input = document.querySelector('.enter-img');
 const btnLoadMore = document.querySelector('.more');
+const loader = document.querySelector('.loader'); // Додаємо лоадер
 let currentPage = 1;
 let searchQuery = '';
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
-  message.innerHTML = 'Wait, the image is loaded';
+  loader.innerHTML = 'Wait, the image is loaded';
 
   searchQuery = input.value.trim();
-  if (!searchQuery) return;
+  if (!searchQuery) return; // Якщо запит порожній, лоадер не буде показуватися
 
   currentPage = 1;
   gallery.innerHTML = '';
 
   btnLoadMore.classList.add('hidden');
+  loader.classList.remove('hidden'); // Показуємо лоадер
 
   try {
     const images = await getImage(searchQuery, currentPage);
@@ -44,7 +45,7 @@ form.addEventListener('submit', async e => {
     });
     btnLoadMore.classList.add('hidden');
   } finally {
-    message.textContent = '';
+    loader.classList.add('hidden'); // Ховаємо лоадер
   }
 });
 
@@ -52,8 +53,8 @@ btnLoadMore.addEventListener('click', loadMore);
 
 async function loadMore() {
   currentPage++;
-  message.innerHTML = 'Wait, the image is loaded';
   btnLoadMore.disabled = true;
+  loader.classList.remove('hidden'); // Показуємо лоадер при натисканні на "Load More"
 
   try {
     const images = await getImage(searchQuery, currentPage);
@@ -74,7 +75,7 @@ async function loadMore() {
     });
     btnLoadMore.classList.add('hidden');
   } finally {
-    message.textContent = '';
+    loader.classList.add('hidden'); // Ховаємо лоадер після завантаження
     btnLoadMore.disabled = false;
   }
 }

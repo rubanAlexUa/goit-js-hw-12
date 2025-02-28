@@ -106,3 +106,9 @@ td {
   opacity: 0;
   visibility: hidden;
 }
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
